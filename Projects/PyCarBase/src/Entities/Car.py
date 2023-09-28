@@ -1,10 +1,10 @@
+
 class Car:
-    def __init__(self, model, brand, year, color,idCar):
+    def __init__(self, model, brand, year, color):
         self.model = model
         self.brand = brand
         self.year = year
         self.color = color
-        self.idCar = idCar
 
     def modifyProp(self, prop_name, prop_value):
         if prop_name == "model":
