@@ -27,9 +27,15 @@ def listCars():
 
 def deleteCar():
     print("| 4. Delete a vehicle.")
+    carId = input("Enter CAR ID: ")
+    daoC.deleteCar(carId)
     input("Press Enter to continue...")
 
 def modifyCar():
     print("| 5. Modify vehicle.")
+    carID = input("Enter CAR ID: ")
+    propModify = input("What value do you wish to modify? (Model, Brand, Year, color): ")
+    propValue = input ("Input new value: ")
+    print(daoC.modifyCar(carID, propModify, propValue))
     input("Press enter to continue...")
   

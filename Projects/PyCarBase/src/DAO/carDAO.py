@@ -7,7 +7,7 @@ class carDAO:
         self.createCarTable()
     
     def createCarTable(self):
-        self.cur.execute('''CREATE TABLE IF NOT EXISTS cars(id INTEGER PRIMARY KEY AUTOINCREMENT, model TEXT, brand TEXT, year INTEGER, color TEXT)''')
+        self.cur.execute('''CREATE TABLE IF NOT EXISTS cars(id INTEGER PRIMARY KEY AUTOINCREMENT, model TEXT, brand TEXT, year INTEGER, color TEXT, isActive TEXT DEFAULT 'True')''')
         self.con.commit()
 
     def insertCar(self, item):
@@ -20,6 +20,17 @@ class carDAO:
         return rows   
 
     def readCars(self):
-        self.cur.execute('''SELECT *FROM cars''')
+        self.cur.execute('''SELECT *FROM cars WHERE isActive = 'True' ''')
+        rows = self.cur.fetchall()
+        return rows
+    
+    def deleteCar(self,carId):
+        self.cur.execute('''UPDATE cars SET isActive = 'False' WHERE id = ? ''',carId)
+        self.con.commit()
+    
+    def modifyCar(self,carId,propModify, propValue):
+        self.cur.execute(f'''UPDATE cars SET  {propModify} = ? WHERE id = ? ''', (propValue,carId))
+        self.con.commit()
+        self.cur.execute('''SELECT * From Cars WHERE id = ? ''', carId)
         rows = self.cur.fetchall()
         return rows
