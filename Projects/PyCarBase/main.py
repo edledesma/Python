@@ -1,19 +1,17 @@
 from src.Services.menuServices import *
-from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton
-import sys
-import sqlite3
-
-# app = QApplication(sys.argv)
-
-# window = QMainWindow()
-# window.setWindowTitle("PyCarBase")
-
-# window.show()
-# app.exec()
+import os
 
 
+current_directory = os.path.dirname(os.path.abspath(__file__))
+icon_path = os.path.join(current_directory, "src\Media", "icon.ico")
 
-while True:
-    if menuOp() == "quit":
-        print("Goodbye")
-        break
+root = Tk()
+
+root.title("CarBase")
+
+root.iconbitmap(icon_path)
+root.geometry("600x400")
+menuOptions(root)
+
+root.mainloop()
+

@@ -1,51 +1,28 @@
-import os
 from src.Services.carServices import *
+from tkinter import *
 
-def clear_console():
-    os.system('cls' if os.name == 'nt' else 'clear')
+def menuOptions(root):
 
-def menuOp():
-    print(" ")
-    print("|---Welcome to CarBase!----|")
-    print("|__________________________|")
-    print("|Choose what you want to do|")
-    print("|__________________________|")
-    print("| 1. Enter a new vehicle.")
-    print("| 2. List a specific vehicle.")
-    print("| 3. Display all vehicles.")
-    print("| 4. Delete a vehicle.")
-    print("| 5. Modify a vehicle.")
-    print("| 6. EXIT.")
-    print("                       ")
-    print("Type your choice")
-    while True:
-        choice = ""
-        if type(choice) == int:
-            break
-        else:
-            try:
-                choice = int(input("> "))
-            except:
-                clear_console()
-                print("Invalid input. Try again.")
-        break
-    match (choice):
-        case 1:
-            clear_console()
-            newCar()
-        case 2:
-            clear_console()
-            listCar()
-        case 3:
-            clear_console()
-            listCars()
-        case 4:
-            clear_console()
-            deleteCar()
-        case 5:
-            clear_console()
-            modifyCar()
-        case 6:
-            clear_console()
-            return "quit"
-    
+    my_menu = Menu(root)
+    root.config(menu=my_menu)
+
+    file_menu = Menu(my_menu)
+    my_menu.add_cascade(label="File", menu=file_menu)
+
+    file_menu.add_command(label="Exit", command=root.quit)
+
+    car_menu= Menu(my_menu)
+    my_menu.add_cascade(label="Car Menu", menu=car_menu)
+    car_menu.add_command(label="New Car", command=lambda: newCar(frame))
+    car_menu.add_command(label="Delete Car", command=lambda: delCar(frame))
+    car_menu.add_command(label="Modify Car", command=lambda: modCar(frame))
+
+    list_menu = Menu(my_menu)
+    my_menu.add_cascade(label="List Menu", menu=list_menu)
+    list_menu.add_command(label="List Car", command=lambda:listCar(frame))
+    list_menu.add_command(label="List Cars", command=lambda:listCars(frame))
+
+    frame = LabelFrame(root)
+    frame.grid(row=1, column=0)
+
+

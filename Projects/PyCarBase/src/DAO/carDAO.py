@@ -15,7 +15,7 @@ class carDAO:
         self.con.commit()
 
     def readCar(self,carId):
-        self.cur.execute('''SELECT *FROM cars WHERE id = ?''' ,carId)
+        self.cur.execute('''SELECT *FROM cars WHERE id = ?''' ,(carId,))
         rows = self.cur.fetchall()
         return rows   
 
@@ -25,12 +25,12 @@ class carDAO:
         return rows
     
     def deleteCar(self,carId):
-        self.cur.execute('''UPDATE cars SET isActive = 'False' WHERE id = ? ''',carId)
+        self.cur.execute('''UPDATE cars SET isActive = 'False' WHERE id = ? ''',(carId,))
         self.con.commit()
     
     def modifyCar(self,carId,propModify, propValue):
-        self.cur.execute(f'''UPDATE cars SET  {propModify} = ? WHERE id = ? ''', (propValue,carId))
+        self.cur.execute(f'''UPDATE cars SET  {propModify} = ? WHERE id = (?) ''', (propValue,carId))
         self.con.commit()
-        self.cur.execute('''SELECT * From Cars WHERE id = ? ''', carId)
+        self.cur.execute('''SELECT * From Cars WHERE id = ? ''', (carId,))
         rows = self.cur.fetchall()
         return rows
