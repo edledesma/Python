@@ -9,15 +9,15 @@ def clearFrame(frame):
 
 def newCar(frame,rootFrame):
         
-    def submitAll(LabelSuc):
+    def submitAll(labelSuc):
         model = entryModel.get()
-        brand = entrybrand.get()
+        brand = entryBrand.get()
         year = entryYear.get()
         color = entryColor.get()
         CarObj = (model, brand, year, color)
         daoC.insertCar(CarObj)
         car_Info= (f"Vehicle {model} added sucessfully")
-        LabelSuc.config(text=car_Info)
+        labelSuc.config(text=car_Info)
         
     print("| 1. Create new car entry")    
     clearFrame(frame)
@@ -25,32 +25,31 @@ def newCar(frame,rootFrame):
     aLabel = tk.Label(frame, text = "Create new car entry", width=20)
     aLabel.grid(row=1,column=0)
     
-    LabelModel = tk.Label(frame,text= "Input model:")
-    LabelModel.grid(row=2,column=0, sticky=tk.E)
+    labelModel = tk.Label(frame,text= "Input model:")
+    labelModel.grid(row=2,column=0)
     entryModel = tk.Entry(frame)
-    entryModel.insert(0,"Enter model")
     entryModel.grid(row=2,column=1)
 
-    Labelbrand = tk.Label(frame,text= "Input brand:")
-    Labelbrand.grid(row=3,column=0)
-    entrybrand = tk.Entry(frame)
-    entrybrand.grid(row=3,column=1)
+    labelBrand = tk.Label(frame,text= "Input brand:")
+    labelBrand.grid(row=3,column=0)
+    entryBrand = tk.Entry(frame)
+    entryBrand.grid(row=3,column=1)
 
-    LabelYear = tk.Label(frame,text= "Input year:")
-    LabelYear.grid(row=4,column=0)
+    labelYear = tk.Label(frame,text= "Input year:")
+    labelYear.grid(row=4,column=0)
     entryYear = tk.Entry(frame)
     entryYear.grid(row=4,column=1)
 
 
-    LabelColor = tk.Label(frame,text= "Input color:")
-    LabelColor.grid(row=5,column=0)
+    labelColor = tk.Label(frame,text= "Input color:")
+    labelColor.grid(row=5,column=0)
     entryColor = tk.Entry(frame)
     entryColor.grid(row=5,column=1)
 
-    LabelSuc = tk.Label(frame,text = "")
-    LabelSuc.grid(row=7,column=0)
+    labelSuc = tk.Label(frame,text = "")
+    labelSuc.grid(row=7,column=0)
     
-    btnSubmit = tk.Button(frame,text= "Submit", command=lambda: submitAll(LabelSuc))
+    btnSubmit = tk.Button(frame,text= "Submit", command=lambda: submitAll(labelSuc))
     btnSubmit.grid(row=6,column=0, columnspan = 2)
     
 
@@ -68,8 +67,8 @@ def listCar(frame,rootFrame):
     bLabel = tk.Label(frame, text = "List a car")
     bLabel.grid(row=1,column=0)
 
-    LabelID = tk.Label(frame,text= "Input ID:")
-    LabelID.grid(row=2,column=0)
+    labelID = tk.Label(frame,text= "Input ID:")
+    labelID.grid(row=2,column=0)
     entryID = tk.Entry(frame)
     entryID.insert(0,"Enter ID")
     entryID.grid(row=2,column=1)
@@ -92,9 +91,9 @@ def listCars(frame,rootFrame):
     
 def delCar(frame,rootFrame):
 
-    def delCarId(carId):
-        daoC.deleteCar(carId)
-        aLabel =tk.Label(frame, text = f"Car with ID: {carId} was deleted")
+    def delCarId(carID):
+        daoC.deleteCar(carID)
+        aLabel =tk.Label(frame, text = f"Car with ID: {carID} was deleted")
         aLabel.grid(row = 4, column = 0, columnspan = 2)
 
     print("| 4. Delete a vehicle.")
@@ -112,14 +111,14 @@ def delCar(frame,rootFrame):
 
 def modCar(frame,rootFrame):
     
-    def modifyCar(carId,propModify,propValue,aLabel):
+    def modifyCar(carID,propModify,propValue,aLabel):
         
         if propModify != "model" and propModify != "brand" and propModify != "year" and propModify != "color":
             aLabel.config(text="That's not a valid option ")
             print ("OH NO!That's not a valid option")
         else:
-            daoC.modifyCar(carId, propModify, propValue)
-            car_Info= (f"Modiying {propValue} {propModify} from car ID: {carId}")
+            daoC.modifyCar(carID, propModify, propValue)
+            car_Info= (f"Modified {propValue} {propModify} from car ID: {carID}")
             aLabel.config(text=car_Info)
             
 
@@ -129,8 +128,8 @@ def modCar(frame,rootFrame):
     aLabel = tk.Label(frame, text = "Modify car entry")
     aLabel.grid(row=1,column=0)
 
-    LabelID = tk.Label(frame,text= "Input ID:")
-    LabelID.grid(row=2,column=0)
+    labelID = tk.Label(frame,text= "Input ID:")
+    labelID.grid(row=2,column=0)
     entryID = tk.Entry(frame)
     entryID.insert(0,"Enter ID")
     entryID.grid(row=2,column=1)
@@ -151,8 +150,8 @@ def modCar(frame,rootFrame):
     aLabel = tk.Label(frame,text="")
     aLabel.grid(row = 9, column = 0, columnspan = 2)    
 
-    LabelValue = tk.Label(frame,text= "Input new value:")
-    LabelValue.grid(row=10,column=0)
+    labelValue = tk.Label(frame,text= "Input new value:")
+    labelValue.grid(row=10,column=0)
     entryValue = tk.Entry(frame)
     entryValue.insert(0,"Enter new value")
     entryValue.grid(row=11,column=1)

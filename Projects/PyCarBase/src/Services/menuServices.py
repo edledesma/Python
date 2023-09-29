@@ -23,8 +23,8 @@ def menuOptions(root):
 
     
     rootFrame = tk.Label(root, text="Welcome to CarBase")
-    rootFrame.pack(fill=tk.X)
+    rootFrame.pack(pady=10,fill=tk.X)
     frame = tk.LabelFrame(root)
-    frame.pack(ipadx = 30, ipady = 30, fill=tk.BOTH, expand=True)
+    frame.pack(pady=20)
 
 
