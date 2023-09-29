@@ -5,7 +5,16 @@
         "**/.hg": true,
         "**/CVS": true,
         "**/.DS_Store": true,
-        "**/Thumbs.db": true
+        "**/Thumbs.db": true,
+        "Projects/PyCarBase/src/DAO/__pycache__": true,
+        "Projects/PyCarBase/src/Entities/__pycache__": true,
+        "Projects/PyCarBase/src/Entities/Car.cpython-311.pyc": true,
+        "Projects/PyCarBase/src/Services/__pycache__": true
     },
-    "hide-files.files": []
+    "hide-files.files": [
+        "Projects/PyCarBase/src/DAO/__pycache__",
+        "Projects/PyCarBase/src/Entities/__pycache__",
+        "Projects/PyCarBase/src/Entities/Car.cpython-311.pyc",
+        "Projects/PyCarBase/src/Services/__pycache__"
+    ]
 }

@@ -7,7 +7,7 @@ def clearFrame(frame):
     for widget in frame.winfo_children():
         widget.destroy()
 
-def newCar(frame):
+def newCar(frame,rootFrame):
         
     def submitAll(LabelSuc):
         model = entryModel.get()
@@ -21,6 +21,7 @@ def newCar(frame):
         
     print("| 1. Create new car entry")    
     clearFrame(frame)
+    rootFrame.config(text="New car entry")
     aLabel = tk.Label(frame, text = "Create new car entry", width=20)
     aLabel.grid(row=1,column=0)
     
@@ -53,7 +54,7 @@ def newCar(frame):
     btnSubmit.grid(row=6,column=0, columnspan = 2)
     
 
-def listCar(frame):
+def listCar(frame,rootFrame):
 
     def getCar(carid,aLabel):
         car = daoC.readCar(carid)
@@ -63,6 +64,7 @@ def listCar(frame):
     
     print("| 2. List a specific vehicle.")
     clearFrame(frame)
+    rootFrame.config(text="List a car")
     bLabel = tk.Label(frame, text = "List a car")
     bLabel.grid(row=1,column=0)
 
@@ -79,15 +81,16 @@ def listCar(frame):
     btnSubmit.grid(row=3,column=0, columnspan = 2)
 
 
-def listCars(frame):
+def listCars(frame,rootFrame):
     print("| 3. Display all vehicles.")
     clearFrame(frame)
+    rootFrame.config(text="All cars in database")
     carList = daoC.readCars()
     for car in carList:
         labelList = tk.Label(frame,text=f" ID: {car[0]} - Model: {car[1]} - Brand: {car[2]} - Year: {car[3]} - Color: {car[4]}")
         labelList.pack(anchor=tk.W)
     
-def delCar(frame):
+def delCar(frame,rootFrame):
 
     def delCarId(carId):
         daoC.deleteCar(carId)
@@ -96,7 +99,7 @@ def delCar(frame):
 
     print("| 4. Delete a vehicle.")
     clearFrame(frame)
-
+    rootFrame.config(text="Delete a car")
     LabelID = tk.Label(frame,text= "Input ID:")
     LabelID.grid(row=2,column=0)
     entryID = tk.Entry(frame)
@@ -107,7 +110,7 @@ def delCar(frame):
     btnSubmit.grid(row=3,column=0, columnspan = 2)
 
 
-def modCar(frame):
+def modCar(frame,rootFrame):
     
     def modifyCar(carId,propModify,propValue,aLabel):
         
@@ -122,6 +125,7 @@ def modCar(frame):
 
     print("| 5. Modify vehicle.")
     clearFrame(frame)
+    rootFrame.config(text="Modify car entry")
     aLabel = tk.Label(frame, text = "Modify car entry")
     aLabel.grid(row=1,column=0)
 
