@@ -3,7 +3,7 @@ from menu import *
 root = tk.Tk()
 root.title("Stringfy")
 try:
-    root.iconbitmap('icon.ico')
+    root.iconbitmap('_internal/icon.ico')
 except Exception:
     pass
 
