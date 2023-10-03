@@ -21,7 +21,6 @@ The exe are compiled using the PyInstaller package, because of this it may be de
 
 ## __Download__
 
-
 - [ZipFile/Folder](https://github.com/edledesma/Python-OOP/blob/main/Stringfy/PACKAGES/Stringfy.zip)
 
 - [.exe/One File](https://github.com/edledesma/Python-OOP/blob/main/Stringfy/PACKAGES/Stringfy.exe)
