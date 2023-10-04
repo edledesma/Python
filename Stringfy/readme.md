@@ -25,7 +25,7 @@ The exe are compiled using the PyInstaller package, because of this it may be de
 
 - [.exe/One File](https://github.com/edledesma/Python/blob/main/Stringfy/PACKAGES/Stringfy.exe)
 
-- [Source/Code](https://github.com/edledesma/Python/tree/main/Stringfy)
+- [Source/Code](https://github.com/edledesma/Python/tree/main/Stringfy/src/)
 
 <details>
 
