@@ -1,14 +1,28 @@
 """
 Required imports
 """
+import os
+import sys
 from tkinter import filedialog
 import tkinter as tk
 from PIL import Image, ImageGrab, UnidentifiedImageError
 import pytesseract
 from pytesseract import TesseractError
 
-# Change this path to your Tesseract installation, this is the default by Tesseract OCR
-pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+TESSERACT_PATH = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+pytesseract.pytesseract.tesseract_cmd = TESSERACT_PATH
+if not os.path.exists(TESSERACT_PATH):
+    while True:
+        TESSERACT_PATH = filedialog.askopenfilename(title="Select Tesseract Executable",
+                                                    filetypes=[("Executable files", "*.exe")])
+        if not TESSERACT_PATH:
+            sys.exit()
+        if os.path.basename(TESSERACT_PATH) != "tesseract.exe":
+            print("Invalid selection. Please choose the Tesseract executable (tesseract.exe).")
+        else:
+            pytesseract.pytesseract.tesseract_cmd = TESSERACT_PATH
+            print("Tesseract executable selected:", TESSERACT_PATH)
+            break
 
 def save_as(text_display):
     """
@@ -68,9 +82,12 @@ def convert_image_to_text(image_path):
     Returns:
         str: The extracted text from the image.
     """
-    image = Image.open(image_path)
-    text = pytesseract.image_to_string(image)
-    return text
+    try:
+        image = Image.open(image_path)
+        text = pytesseract.image_to_string(image)
+        return text
+    except pytesseract.pytesseract.TesseractNotFoundError:
+        return "Error: Tesseract OCR couldn't process the image. "
 
 
 def clear_text(text_display):

@@ -31,7 +31,6 @@ def menu_gui():
     root.minsize(450, 250)
     menu_elements(root)
 
-
 def menu_elements(root):
     """
     Create the menu elements for the tkinter application.
@@ -46,6 +45,7 @@ def menu_elements(root):
 
     file_menu = tk.Menu(my_menu, tearoff="off")
     my_menu.add_cascade(label="File", menu=file_menu)
+    file_menu.add_command(label="Open file", command=lambda: open_image_dialog(text_display, root))
     file_menu.add_command(label="Save as..", command=lambda: save_as(text_display))
     file_menu.add_separator()
     file_menu.add_command(label="Exit", command=root.quit)
