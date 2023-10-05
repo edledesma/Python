@@ -2,6 +2,7 @@
 Required imports
 """
 from tkinter import TclError
+from sys import platform
 from services import (
     tk,
     save_as,
@@ -11,6 +12,7 @@ from services import (
     open_from_clipboard,
     clear_text,
     copy_all,
+    capture_screen,
 )
 
 def menu_gui():
@@ -59,17 +61,29 @@ def menu_elements(root):
         label="Light mode", command=lambda: light_mode(root, menu_elements)
     )
 
+    options_frame = tk.Frame()
+    options_frame.pack()
+
     btn_open = tk.Button(
-        root, text="Open image", command=lambda: open_image_dialog(text_display, root)
+        options_frame, text="Open image", command=lambda: open_image_dialog(text_display, root)
     )
-    btn_open.pack(padx=20, pady=5)
+    btn_open.pack(padx=2, pady=4, ipadx=10,ipady=5, expand=True, fill=tk.BOTH, side=tk.LEFT)
 
     btn_paste = tk.Button(
-        root,
+        options_frame,
         text="Paste clipboard",
         command=lambda: open_from_clipboard(text_display, root),
     )
-    btn_paste.pack(padx=20, pady=5)
+    btn_paste.pack(padx=2, pady=4, ipadx=10,ipady=5, expand=True, fill=tk.BOTH, side=tk.LEFT)
+
+    btn_capture = tk.Button(
+    options_frame,
+    text="Capture",
+    command=lambda:capture_screen(text_display, root)
+    )
+    if platform != "win32":
+        btn_capture['state']=tk.DISABLED
+    btn_capture.pack(padx=2, pady=4, ipadx=20, expand=True, fill=tk.BOTH, side=tk.LEFT)
 
     frame = tk.LabelFrame(root)
     frame.pack(padx=20, pady=5)

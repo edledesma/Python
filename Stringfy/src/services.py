@@ -1,13 +1,17 @@
 """
 Required imports
 """
+
+import subprocess
 import os
 import sys
+import time
 from tkinter import filedialog
 import tkinter as tk
 from PIL import Image, ImageGrab, UnidentifiedImageError
 import pytesseract
 from pytesseract import TesseractError
+
 
 TESSERACT_PATH = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 pytesseract.pytesseract.tesseract_cmd = TESSERACT_PATH
@@ -18,11 +22,9 @@ if not os.path.exists(TESSERACT_PATH):
         if not TESSERACT_PATH:
             sys.exit()
         if os.path.basename(TESSERACT_PATH) != "tesseract.exe":
-            print("Invalid selection. Please choose the Tesseract executable (tesseract.exe).")
-        else:
-            pytesseract.pytesseract.tesseract_cmd = TESSERACT_PATH
-            print("Tesseract executable selected:", TESSERACT_PATH)
-            break
+            continue
+        pytesseract.pytesseract.tesseract_cmd = TESSERACT_PATH
+        break
 
 def save_as(text_display):
     """
@@ -87,7 +89,7 @@ def convert_image_to_text(image_path):
         text = pytesseract.image_to_string(image)
         return text
     except pytesseract.pytesseract.TesseractNotFoundError:
-        return "Error: Tesseract OCR couldn't process the image. "
+        return "Error: Tesseract OCR failed to process the image"
 
 
 def clear_text(text_display):
@@ -150,6 +152,7 @@ def open_image_dialog(text_display, root):
         None
     """
     try:
+        text =""
         file_path = filedialog.askopenfilename(
             filetypes=[("Image files", "*.png *.jpg *.jpeg *.gif *.bmp *.tif *.tiff")]
         )
@@ -192,3 +195,25 @@ def update_text(text_display, root, text):
     text_display.bind(
         "<Button-3>", lambda event: context_menu.post(event.x_root, event.y_root)
     )
+
+def capture_screen(text_display,root):
+    """
+    Opens Snips & clip! and minimizes the window when the capture button is clicked
+    """
+    try:
+        root.state(newstate='iconic')
+        command = 'explorer ms-screenclip:'
+        subprocess.run(command, shell=True, check=False)
+    except subprocess.CalledProcessError:
+        return
+    root.bind("<Enter>", lambda event: on_enter(text_display,root))
+    time.sleep(1)
+    root.state(newstate='normal')
+
+
+def on_enter(text_display,root):
+    """
+    When the users goes back to the root window the captured image is pasted
+    """
+    open_from_clipboard(text_display, root)
+    return root.unbind("<Enter>")
