@@ -1,13 +1,12 @@
 """
 Required imports
 """
-
 import subprocess
 import os
 import sys
 import time
 from tkinter import filedialog
-import tkinter as tk
+import ttkbootstrap as ttkb
 from PIL import Image, ImageGrab, UnidentifiedImageError
 import pytesseract
 from pytesseract import TesseractError
@@ -34,7 +33,7 @@ def save_as(text_display):
     Returns:
         None
     """
-    text = text_display.get(1.0, tk.END)
+    text = text_display.get(1.0, ttkb.END)
     file_path = filedialog.asksaveasfilename(
         initialfile="converted.txt", filetypes=[("Text files", "*.txt")]
     )
@@ -44,7 +43,7 @@ def save_as(text_display):
         file.write(text)
 
 
-def dark_mode(root, menu_elements):
+def dark_mode(root):
     """
     Set the dark mode theme for the tkinter application.
     Args:
@@ -53,13 +52,10 @@ def dark_mode(root, menu_elements):
     Returns:
         None
     """
-    root.tk_setPalette(background="#525252", foreground="#ffffff")
-    for widget in root.winfo_children():
-        widget.destroy()
-    menu_elements(root)
+    root.style.theme_use('darkly')
+    
 
-
-def light_mode(root, menu_elements):
+def light_mode(root):
     """
     Set the light mode theme for the tkinter application.
     Args:
@@ -68,11 +64,7 @@ def light_mode(root, menu_elements):
     Returns:
         None
     """
-    root.tk_setPalette(background="SystemButtonFace", foreground="SystemWindowText")
-    root.option_clear()
-    for widget in root.winfo_children():
-        widget.destroy()
-    menu_elements(root)
+    root.style.theme_use('pulse')
 
 
 def convert_image_to_text(image_path):
@@ -100,7 +92,7 @@ def clear_text(text_display):
     Returns:
         None
     """
-    text_display.delete(1.0, tk.END)
+    text_display.delete(1.0, ttkb.END)
 
 
 def copy_all(text_display, root):
@@ -113,7 +105,7 @@ def copy_all(text_display, root):
         None
     """
     root.clipboard_clear()
-    root.clipboard_append(text_display.get(1.0, tk.END))
+    root.clipboard_append(text_display.get(1.0, ttkb.END))
 
 
 def open_from_clipboard(text_display, root):
@@ -173,8 +165,8 @@ def update_text(text_display, root, text):
     Returns:
         None
     """
-    text_display.insert(tk.END, text)
-    context_menu = tk.Menu(root, tearoff=0)
+    text_display.insert(ttkb.END, text)
+    context_menu = ttkb.Menu(root, tearoff=0)
     context_menu.add_command(
         label="Copy",
         command=lambda: root.clipboard_clear()
@@ -190,7 +182,7 @@ def update_text(text_display, root, text):
     context_menu.add_separator()
     context_menu.add_command(
         label="Paste",
-        command=lambda: text_display.insert(tk.INSERT, root.clipboard_get()),
+        command=lambda: text_display.insert(ttkb.INSERT, root.clipboard_get()),
     )
     text_display.bind(
         "<Button-3>", lambda event: context_menu.post(event.x_root, event.y_root)
