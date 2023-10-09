@@ -22,6 +22,10 @@ def new_car(frame,root_frame):
         brand = entry_brand.get()
         year = entry_year.get()
         color = entry_color.get()
+        entry_model.delete(0,'end')
+        entry_brand.delete(0,'end')
+        entry_year.delete(0,'end')
+        entry_color.delete(0,'end')
         car_obj = (model, brand, year, color)
         daoC.insert_car(car_obj)
         car_info=f"Vehicle {model} added sucessfully"
